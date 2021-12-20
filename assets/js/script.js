@@ -7,6 +7,7 @@ var tasksCompletedE1= document.querySelector("#task-completed");
 var tasks= [];
 
 
+//function
 var completeEditTask= function(taskName, taskType, taskId)
 {
     // find the matching task list item
@@ -27,11 +28,14 @@ var completeEditTask= function(taskName, taskType, taskId)
         }
     }
 
+    saveTasks();
     alert("Task Update!");
     formE1.removeAttribute("data-task-id");
     document.querySelector("#save-task").textContent= "Add Task";
 };
 
+
+//function
 var taskFormHandler= function(event)
 {
     event.preventDefault();
@@ -69,6 +73,8 @@ var taskFormHandler= function(event)
 
 };
 
+
+//function
 var createTaskE1= function(taskDataObj)
 {
     var listItemE1= document.createElement("li");
@@ -93,10 +99,14 @@ var createTaskE1= function(taskDataObj)
     taskDataObj.id= taskIdCounter;
     tasks.push(taskDataObj);
 
+    saveTasks();
+
     // increase task counter for next unique id
     taskIdCounter++;
 };
 
+
+//function
 var createTaskActions= function(taskId)
 {
     var actionContainerE1= document.createElement("div");
@@ -142,6 +152,7 @@ var createTaskActions= function(taskId)
 };
 
 
+//function
 var editTask= function(taskId)
 {
     // get task list item element
@@ -161,6 +172,8 @@ var editTask= function(taskId)
     
 };
 
+
+//function
 var deleteTask= function(taskId)
 {
     var taskSelected= document.querySelector(".task-item[data-task-id='" 
@@ -183,8 +196,12 @@ var deleteTask= function(taskId)
 
     // reassign tasks array to be the same as updatedTaskArr
     tasks= updatedTaskArr;
+
+    saveTasks();
 };
 
+
+//function
 var taskButtonHandler= function(event)
 {
     // get target element from event
@@ -206,6 +223,8 @@ var taskButtonHandler= function(event)
     }
 };
 
+
+//function
 var taskStatusChangeHandler= function(event)
 {
     // get the task item's id
@@ -242,8 +261,16 @@ var taskStatusChangeHandler= function(event)
             tasks[i].status= statusValue;
         }
     }
+
+    saveTasks();
 };
 
+
+//function
+var saveTasks= function()
+{
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
 
 formE1.addEventListener("submit", taskFormHandler);
