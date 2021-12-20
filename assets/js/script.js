@@ -273,6 +273,31 @@ var saveTasks= function()
 };
 
 
+//function
+var loadTasks= function()
+{
+    //Gets task items from localStorage
+    var savedTasks= localStorage.getItem("tasks");
+
+    if (!savedTasks)
+    {
+        return false;
+    }
+
+    //Converts tasks from the string format back into an array of objects
+    savedTasks= JSON.parse(savedTasks);
+   
+
+    // loop through savedTasks array
+    for (var i= 0; i < saveTasks.length;i++)
+    {
+        // pass each task object into the `createTaskEl()` function
+        createTaskE1(savedTasks[i]);
+    }
+    
+};
+
 formE1.addEventListener("submit", taskFormHandler);
 pageContentE1.addEventListener("click", taskButtonHandler);
 pageContentE1.addEventListener("change", taskStatusChangeHandler);
+loadTasks();
